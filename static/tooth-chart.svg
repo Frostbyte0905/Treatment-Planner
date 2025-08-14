@@ -1,0 +1,84 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <style>
+    .lbl{font: 16px/1.2 sans-serif; fill:#111;}
+    .dot{fill:#fff; stroke:#999;}
+    .arc{fill:none; stroke:#e0e0e0; stroke-width:2;}
+    .title{font: 18px sans-serif; fill:#333;}
+  </style>
+  <rect width="100%" height="100%" fill="#fafafa"/>
+  <text x="20" y="26" class="title">Universal Numbering System</text>
+
+  <!-- Upper arch guide -->
+  <path d="M60,160 C200,40 700,40 840,160" class="arc"/>
+  <!-- Lower arch guide -->
+  <path d="M60,260 C200,360 700,360 840,260" class="arc"/>
+
+  <!-- Upper teeth 1-16 -->
+  <circle class="dot" cx="80.0" cy="108.0" r="14"/>
+<text class="lbl" x="80.0" y="88.0" text-anchor="middle">1</text>
+<circle class="dot" cx="129.3" cy="114.0" r="14"/>
+<text class="lbl" x="129.3" y="94.0" text-anchor="middle">2</text>
+<circle class="dot" cx="178.7" cy="120.0" r="14"/>
+<text class="lbl" x="178.7" y="100.0" text-anchor="middle">3</text>
+<circle class="dot" cx="228.0" cy="126.0" r="14"/>
+<text class="lbl" x="228.0" y="106.0" text-anchor="middle">4</text>
+<circle class="dot" cx="277.3" cy="132.0" r="14"/>
+<text class="lbl" x="277.3" y="112.0" text-anchor="middle">5</text>
+<circle class="dot" cx="326.7" cy="138.0" r="14"/>
+<text class="lbl" x="326.7" y="118.0" text-anchor="middle">6</text>
+<circle class="dot" cx="376.0" cy="144.0" r="14"/>
+<text class="lbl" x="376.0" y="124.0" text-anchor="middle">7</text>
+<circle class="dot" cx="425.3" cy="150.0" r="14"/>
+<text class="lbl" x="425.3" y="130.0" text-anchor="middle">8</text>
+<circle class="dot" cx="474.7" cy="144.0" r="14"/>
+<text class="lbl" x="474.7" y="124.0" text-anchor="middle">9</text>
+<circle class="dot" cx="524.0" cy="138.0" r="14"/>
+<text class="lbl" x="524.0" y="118.0" text-anchor="middle">10</text>
+<circle class="dot" cx="573.3" cy="132.0" r="14"/>
+<text class="lbl" x="573.3" y="112.0" text-anchor="middle">11</text>
+<circle class="dot" cx="622.7" cy="126.0" r="14"/>
+<text class="lbl" x="622.7" y="106.0" text-anchor="middle">12</text>
+<circle class="dot" cx="672.0" cy="120.0" r="14"/>
+<text class="lbl" x="672.0" y="100.0" text-anchor="middle">13</text>
+<circle class="dot" cx="721.3" cy="114.0" r="14"/>
+<text class="lbl" x="721.3" y="94.0" text-anchor="middle">14</text>
+<circle class="dot" cx="770.7" cy="108.0" r="14"/>
+<text class="lbl" x="770.7" y="88.0" text-anchor="middle">15</text>
+<circle class="dot" cx="820.0" cy="102.0" r="14"/>
+<text class="lbl" x="820.0" y="82.0" text-anchor="middle">16</text>
+
+  <!-- Lower teeth 17-32 -->
+  <circle class="dot" cx="80.0" cy="312.0" r="14"/>
+<text class="lbl" x="80.0" y="338.0" text-anchor="middle">17</text>
+<circle class="dot" cx="129.3" cy="306.0" r="14"/>
+<text class="lbl" x="129.3" y="332.0" text-anchor="middle">18</text>
+<circle class="dot" cx="178.7" cy="300.0" r="14"/>
+<text class="lbl" x="178.7" y="326.0" text-anchor="middle">19</text>
+<circle class="dot" cx="228.0" cy="294.0" r="14"/>
+<text class="lbl" x="228.0" y="320.0" text-anchor="middle">20</text>
+<circle class="dot" cx="277.3" cy="288.0" r="14"/>
+<text class="lbl" x="277.3" y="314.0" text-anchor="middle">21</text>
+<circle class="dot" cx="326.7" cy="282.0" r="14"/>
+<text class="lbl" x="326.7" y="308.0" text-anchor="middle">22</text>
+<circle class="dot" cx="376.0" cy="276.0" r="14"/>
+<text class="lbl" x="376.0" y="302.0" text-anchor="middle">23</text>
+<circle class="dot" cx="425.3" cy="270.0" r="14"/>
+<text class="lbl" x="425.3" y="296.0" text-anchor="middle">24</text>
+<circle class="dot" cx="474.7" cy="276.0" r="14"/>
+<text class="lbl" x="474.7" y="302.0" text-anchor="middle">25</text>
+<circle class="dot" cx="524.0" cy="282.0" r="14"/>
+<text class="lbl" x="524.0" y="308.0" text-anchor="middle">26</text>
+<circle class="dot" cx="573.3" cy="288.0" r="14"/>
+<text class="lbl" x="573.3" y="314.0" text-anchor="middle">27</text>
+<circle class="dot" cx="622.7" cy="294.0" r="14"/>
+<text class="lbl" x="622.7" y="320.0" text-anchor="middle">28</text>
+<circle class="dot" cx="672.0" cy="300.0" r="14"/>
+<text class="lbl" x="672.0" y="326.0" text-anchor="middle">29</text>
+<circle class="dot" cx="721.3" cy="306.0" r="14"/>
+<text class="lbl" x="721.3" y="332.0" text-anchor="middle">30</text>
+<circle class="dot" cx="770.7" cy="312.0" r="14"/>
+<text class="lbl" x="770.7" y="338.0" text-anchor="middle">31</text>
+<circle class="dot" cx="820.0" cy="318.0" r="14"/>
+<text class="lbl" x="820.0" y="344.0" text-anchor="middle">32</text>
+</svg>
