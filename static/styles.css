@@ -133,36 +133,50 @@ textarea[name="reason[]"]{
 
 .table-wrap{ overflow:auto; }
 
-/* Column widths via <colgroup> */
-.plan-table col.col-proc   { width:16%; }
-.plan-table col.col-tooth  { width:10%; }
-.plan-table col.col-reason { width:26%; }
+/* ---------- TABLE COLUMN BALANCE ----------
+   These add up to 100 percent to avoid overflow/scrollbars.
+*/
+.plan-table col.col-proc   { width:15%; }
+.plan-table col.col-tooth  { width:9%; }
+.plan-table col.col-reason { width:24%; }
 .plan-table col.col-cost   { width:10%; }
-.plan-table col.col-ins    { width:16%; }
-.plan-table col.col-pat    { width:16%; }
-.plan-table col.col-month  { width:10%; }
+.plan-table col.col-ins    { width:15%; }
+.plan-table col.col-pat    { width:15%; }
+.plan-table col.col-month  { width:12%; }
 
+/* Table basics */
 .plan-table{
   width:100%;
   border-collapse: collapse;
-  table-layout: auto; /* allow natural wrapping */
+  table-layout:auto;           /* let columns size naturally */
 }
 .plan-table th, .plan-table td{
   border-bottom:1px solid var(--border);
   padding:.6rem .5rem;
   text-align:left;
-  vertical-align:top;
+  vertical-align:middle;
 
-  /* keep words intact, but still wrap at spaces */
+  /* keep words intact, wrap at spaces */
   word-break: keep-all;
   overflow-wrap: normal;
   hyphens: none;
 }
 
+/* Header */
 .plan-table thead th{
   background:var(--brand);
   color:#fff;
+  white-space:nowrap;          /* headers on one line... */
 }
+
+/* ...except the Monthly header which is two lines by design */
+.plan-table thead th.col-month{
+  white-space:normal;          /* allow the manual <br> */
+  line-height:1.2;
+  text-align:center;
+}
+
+/* Totals */
 .plan-table tfoot th{
   text-align:right;
   background:#fafafa;
@@ -229,17 +243,13 @@ a.btn:hover{
 
 /* Print styles */
 @media print {
-  /* hide app chrome */
   .site-header, .print-actions, .actions { display:none !important; }
 
-  /* page + background */
   @page { margin: 12mm; }
   body { background:#fff; }
 
-  /* let the table expand; no scrollbars in print */
   .table-wrap { overflow: visible !important; }
 
-  /* keep natural wrapping and same column widths in print */
   .plan-table { table-layout: auto; font-size: 12px; }
   .plan-table th,
   .plan-table td,
@@ -253,20 +263,101 @@ a.btn:hover{
     border-color: #ddd;
   }
 
-  /* same column widths for paper */
-  .plan-table col.col-proc   { width:16%; }
-  .plan-table col.col-tooth  { width:10%; }
-  .plan-table col.col-reason { width:26%; }
+  /* keep the same balanced widths on paper */
+  .plan-table col.col-proc   { width:15%; }
+  .plan-table col.col-tooth  { width:9%; }
+  .plan-table col.col-reason { width:24%; }
   .plan-table col.col-cost   { width:10%; }
-  .plan-table col.col-ins    { width:16%; }
-  .plan-table col.col-pat    { width:16%; }
-  .plan-table col.col-month  { width:10%; }
+  .plan-table col.col-ins    { width:15%; }
+  .plan-table col.col-pat    { width:15%; }
+  .plan-table col.col-month  { width:12%; }
 
-  /* shrink the diagram a bit and drop caption */
   .plan-header .tooth-diagram { max-width: 200px; }
   .plan-header figcaption { display:none; }
 
-  /* remove extra borders that look heavy on paper */
   .card { border:0; padding:0; }
   .plan-header img { border:0; }
 }
+
+/* Tidy the Procedures header actions */
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:.25rem;
+}
+.head-actions .btn{ white-space:nowrap; }
+
+/* Make the Reason cell comfortably wide on desktop */
+.grid.reason-row{
+  grid-template-columns: 2fr 1.5fr 1fr 3fr 1fr; /* Procedure | Custom | Tooth | Reason | Cost */
+}
+.reason-cell textarea{ min-height: 3.2rem; }
+
+/* Controls row below the inputs */
+.grid.row-controls{
+  grid-template-columns: 1.5fr 2fr 1fr;
+  margin-top:.35rem;
+  align-items:end;
+}
+.push-right{ margin-left:auto; }
+
+/* Keep labels tidy */
+.grid.reason-row label,
+.grid.row-controls label{ min-width:0; }
+
+/* Each procedure line as a tidy mini-card */
+.proc-row{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding: .9rem .9rem .7rem;
+  background:#fff;
+  margin-bottom:.75rem;
+}
+
+/* Remove button floats top-right of the line */
+.remove-pill{
+  position:absolute;
+  top:.6rem;
+  right:.6rem;
+  width:2rem;
+  height:2rem;
+  padding:0;
+  line-height:1;
+}
+
+/* Top row: inputs on a single line where space allows */
+.row-top{
+  display:grid;
+  grid-template-columns: 2fr 1.6fr 1fr 1.2fr 1.4fr 1.2fr; /* proc | custom | tooth | cost | coverage | toggle */
+  grid-gap:.6rem;
+  align-items:end;
+}
+@media (max-width: 900px){
+  .row-top{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Full-width Reason below the top row */
+.row-reason{
+  margin-top:.6rem;
+}
+.row-reason label textarea{
+  min-height:3.1rem;
+}
+
+/* make custom field behave as a normal cell in the grid */
+.cell-proc, .cell-custom, .cell-tooth, .cell-cost, .cell-cov, .cell-toggle{ min-width:0; }
+
+/* inputs consistent height */
+.row-top input, .row-top select, .row-reason textarea{
+  height:auto;
+}
+
+/* subtle divider between sets when many lines exist */
+.proc-row + .proc-row{ margin-top:.85rem; }
+
+/* Keep labels narrow where useful */
+.cell-toggle span{ display:block; white-space:nowrap; }
