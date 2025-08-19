@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{{ url_for('plan') }}" method="post" id="planner-form" autocomplete="off" {% if prefill %}data-prefill="1"{% endif %}>
+  <section class="card">
+    <h2>Patient and Insurance</h2>
+    <div class="grid two">
+      <label>
+        <span>Patient name</span>
+        <input type="text" name="patient_name" placeholder="Full name" autocomplete="off"
+               value="{{ patient_name if prefill else '' }}">
+      </label>
+      <label>
+        <span>Insurance maximum</span>
+        <input type="number" step="0.01" min="0" name="insurance_max" placeholder="2500.00" autocomplete="off"
+               value="{{ insurance_max if prefill else '' }}">
+      </label>
+    </div>
+    <p class="help">Insurance pays the entered percentage for each line until the plan maximum is reached.</p>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>Procedures</h2>
+      <div class="row-actions head-actions">
+        <button type="button" class="btn" id="toggle-finance-terms">Financing terms</button>
+        <button type="button" class="btn" id="toggle-all-monthly">Disable all monthly estimates</button>
+      </div>
+    </div>
+
+    <!-- Hidden panel for APR and term -->
+    <div id="finance-terms" style="display:none; margin:.5rem 0 0;">
+      <div class="grid four">
+        <label>
+          <span>APR percent</span>
+          <input type="number" step="0.01" min="0" name="apr_percent"
+                 value="{{ apr_percent if prefill else '15' }}" placeholder="15">
+        </label>
+        <label>
+          <span>Months</span>
+          <input type="number" step="1" min="1" name="term_months"
+                 value="{{ term_months if prefill else '48' }}" placeholder="48">
+        </label>
+      </div>
+    </div>
+
+    <div id="rows">
+      {% if prefill and prefill_rows %}
+        {% for row in prefill_rows %}
+        <div class="proc-row" data-row>
+          <button class="btn danger remove-pill" type="button" title="Remove" data-remove>&times;</button>
+
+          <div class="row-top">
+            <label class="cell-proc">
+              <span>Procedure</span>
+              <select name="procedure_name[]" autocomplete="off">
+                {% for p in procedures %}
+                  <option value="{{ p }}" {% if row.procedure_name == p %}selected{% endif %}>{{ p }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="custom-field cell-custom" {% if row.procedure_name != 'Custom' %}style="display:none;"{% endif %}>
+              <span>Custom name</span>
+              <input type="text" name="custom_name[]" placeholder="Enter custom procedure" autocomplete="off"
+                     value="{{ row.custom_name }}">
+            </label>
+
+            <label class="cell-tooth">
+              <span>Tooth</span>
+              <input type="text" name="tooth_number[]" placeholder="e.g., 3 or 14" autocomplete="off"
+                     value="{{ row.tooth_number }}">
+            </label>
+
+            <label class="cell-cost">
+              <span>Cost</span>
+              <input type="number" step="0.01" min="0" name="cost[]" placeholder="0.00" autocomplete="off"
+                     value="{{ row.cost }}">
+            </label>
+
+            <label class="cell-cov">
+              <span>Coverage percent</span>
+              <input type="number" step="1" min="0" max="100" name="coverage_percent[]" placeholder="80" autocomplete="off"
+                     value="{{ row.coverage }}">
+            </label>
+
+            <label class="cell-toggle nowrap">
+              <span>Disable monthly for this line</span>
+              <input type="checkbox" class="no-finance" {% if row.no_finance == '1' %}checked{% endif %}>
+            </label>
+          </div>
+
+          <div class="row-reason">
+            <label>
+              <span>Reason for treatment</span>
+              <textarea name="reason[]" rows="3" placeholder="Enter reason for treatment" autocomplete="off">{{ row.reason }}</textarea>
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="proc-row" data-row>
+          <button class="btn danger remove-pill" type="button" title="Remove" data-remove>&times;</button>
+
+          <div class="row-top">
+            <label class="cell-proc">
+              <span>Procedure</span>
+              <select name="procedure_name[]" autocomplete="off">
+                {% for p in procedures %}
+                <option value="{{ p }}">{{ p }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="custom-field cell-custom" style="display:none;">
+              <span>Custom name</span>
+              <input type="text" name="custom_name[]" placeholder="Enter custom procedure" autocomplete="off">
+            </label>
+
+            <label class="cell-tooth">
+              <span>Tooth</span>
+              <input type="text" name="tooth_number[]" placeholder="e.g., 3 or 14" autocomplete="off">
+            </label>
+
+            <label class="cell-cost">
+              <span>Cost</span>
+              <input type="number" step="0.01" min="0" name="cost[]" placeholder="0.00" autocomplete="off">
+            </label>
+
+            <label class="cell-cov">
+              <span>Coverage percent</span>
+              <input type="number" step="1" min="0" max="100" name="coverage_percent[]" placeholder="80" autocomplete="off">
+            </label>
+
+            <label class="cell-toggle nowrap">
+              <span>Disable monthly for this line</span>
+              <input type="checkbox" class="no-finance">
+            </label>
+          </div>
+
+          <div class="row-reason">
+            <label>
+              <span>Reason for treatment</span>
+              <textarea name="reason[]" rows="3" placeholder="Enter reason for treatment" autocomplete="off"></textarea>
+            </label>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="row-actions">
+      <button type="button" class="btn" id="add-row">Add procedure</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Notes</h2>
+    <textarea name="notes" rows="4" placeholder="Special instructions or scheduling notes" autocomplete="off">{{ notes if prefill else '' }}</textarea>
+  </section>
+
+  <div class="actions">
+    <button type="submit" class="btn primary">Generate plan</button>
+  </div>
+</form>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

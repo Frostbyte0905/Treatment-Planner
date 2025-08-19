@@ -1,0 +1,363 @@
+:root{
+  --bg:#ffffff;
+  --card:#ffffff;
+  --ink:#222;
+  --muted:#666;
+  --border:#e4e4e4;
+  --brand:#b30000;         /* deep red */
+  --brand-light:#e63946;   /* softer red hover */
+  --danger:#d32f2f;
+}
+
+*{ box-sizing: border-box; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.45;
+}
+
+.site-header{
+  background:var(--brand);
+  border-bottom:1px solid var(--border);
+  padding:1rem 1.25rem;
+  color:#fff;
+}
+.site-header h1{
+  margin:0;
+  font-size:1.25rem;
+  color:#fff;
+}
+
+.container{
+  max-width:1100px;
+  margin:1.25rem auto;
+  padding:0 1rem;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1rem;
+  margin-bottom:1rem;
+}
+h2{ margin:.2rem 0 1rem; font-size:1.15rem; }
+
+.grid{
+  display:grid;
+  grid-gap:.75rem;
+}
+.grid.two{
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+.grid.five{
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+}
+.grid.four{
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+}
+
+/* Wider grid for procedure input so Reason has space */
+.grid.reason-row{
+  grid-template-columns: 2fr 2fr 1fr 3fr 1fr; /* Procedure | Custom | Tooth | Reason | Cost */
+}
+
+@media (max-width:900px){
+  .grid.five,
+  .grid.four,
+  .grid.reason-row{ grid-template-columns: 1fr 1fr; }
+}
+
+label span{
+  display:block;
+  font-size:.85rem;
+  color:var(--muted);
+  margin-bottom:.25rem;
+}
+input, select, textarea, button{
+  font:inherit;
+}
+input, select, textarea{
+  width:100%;
+  padding:.6rem .7rem;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#fff;
+}
+textarea[name="reason[]"]{
+  min-height: 2.8rem; /* show multiple lines at a glance */
+}
+.help{ color:var(--muted); font-size:.9rem; }
+
+.row-actions{
+  display:flex;
+  gap:.5rem;
+  align-items:center;
+  margin-top:.5rem;
+}
+
+.btn{
+  padding:.55rem .9rem;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#fff;
+  cursor:pointer;
+}
+.btn.primary{
+  background:var(--brand);
+  color:#fff;
+  border-color:var(--brand);
+}
+.btn.primary:hover{
+  background:var(--brand-light);
+  border-color:var(--brand-light);
+}
+.btn.danger{
+  color:#fff;
+  background:var(--danger);
+  border-color:var(--danger);
+  width:2.25rem;
+  height:2.25rem;
+  line-height:1;
+}
+
+.actions{ display:flex; justify-content:flex-end; }
+
+.procedure-row hr{
+  border:0;
+  border-top:1px dashed var(--border);
+  margin:.75rem 0 0;
+}
+
+.table-wrap{ overflow:auto; }
+
+/* ---------- TABLE COLUMN BALANCE ----------
+   These add up to 100 percent to avoid overflow/scrollbars.
+*/
+.plan-table col.col-proc   { width:15%; }
+.plan-table col.col-tooth  { width:9%; }
+.plan-table col.col-reason { width:24%; }
+.plan-table col.col-cost   { width:10%; }
+.plan-table col.col-ins    { width:15%; }
+.plan-table col.col-pat    { width:15%; }
+.plan-table col.col-month  { width:12%; }
+
+/* Table basics */
+.plan-table{
+  width:100%;
+  border-collapse: collapse;
+  table-layout:auto;           /* let columns size naturally */
+}
+.plan-table th, .plan-table td{
+  border-bottom:1px solid var(--border);
+  padding:.6rem .5rem;
+  text-align:left;
+  vertical-align:middle;
+
+  /* keep words intact, wrap at spaces */
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+/* Header */
+.plan-table thead th{
+  background:var(--brand);
+  color:#fff;
+  white-space:nowrap;          /* headers on one line... */
+}
+
+/* ...except the Monthly header which is two lines by design */
+.plan-table thead th.col-month{
+  white-space:normal;          /* allow the manual <br> */
+  line-height:1.2;
+  text-align:center;
+}
+
+/* Totals */
+.plan-table tfoot th{
+  text-align:right;
+  background:#fafafa;
+}
+
+/* Reason column readable on final table */
+.plan-table th:nth-child(3),
+.plan-table td:nth-child(3){
+  min-width: 220px;
+}
+
+.plan-header{
+  display:flex;
+  gap:2rem;
+  align-items:flex-start;
+  margin-bottom:1rem;
+  flex-wrap:wrap;
+}
+.plan-header .tooth-diagram{
+  margin-left:auto;
+  max-width:260px;   /* subtle size */
+}
+.plan-header figure{ margin:0; }
+.plan-header img{
+  width:100%;
+  height:auto;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#fff;
+}
+.tag{
+  display:inline-block;
+  padding:.1rem .35rem;
+  font-size:.75rem;
+  color:#fff;
+  background:var(--danger);
+  border-radius:4px;
+  margin-left:.35rem;
+}
+
+.notes{ margin-top:1rem; }
+.disclaimer{ margin-top:.5rem; color:var(--muted); font-size:.9rem;
+  word-break: keep-all; overflow-wrap: normal; hyphens: none; }
+
+.print-actions{
+  display:flex;
+  gap:.5rem;
+  margin-top:1rem;
+}
+a.btn{
+  color:#fff;
+  background:var(--brand);
+  border-color:var(--brand);
+  text-decoration:none;
+  display:inline-block;
+}
+a.btn:hover{
+  background:var(--brand-light);
+  border-color:var(--brand-light);
+}
+
+/* No-break utility for short fragments like the parenthetical */
+.nowrap{ white-space: nowrap; }
+
+/* Print styles */
+@media print {
+  .site-header, .print-actions, .actions { display:none !important; }
+
+  @page { margin: 12mm; }
+  body { background:#fff; }
+
+  .table-wrap { overflow: visible !important; }
+
+  .plan-table { table-layout: auto; font-size: 12px; }
+  .plan-table th,
+  .plan-table td,
+  .notes p,
+  .disclaimer p {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+    white-space: normal;
+    padding: .4rem .35rem;
+    border-color: #ddd;
+  }
+
+  /* keep the same balanced widths on paper */
+  .plan-table col.col-proc   { width:15%; }
+  .plan-table col.col-tooth  { width:9%; }
+  .plan-table col.col-reason { width:24%; }
+  .plan-table col.col-cost   { width:10%; }
+  .plan-table col.col-ins    { width:15%; }
+  .plan-table col.col-pat    { width:15%; }
+  .plan-table col.col-month  { width:12%; }
+
+  .plan-header .tooth-diagram { max-width: 200px; }
+  .plan-header figcaption { display:none; }
+
+  .card { border:0; padding:0; }
+  .plan-header img { border:0; }
+}
+
+/* Tidy the Procedures header actions */
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:.25rem;
+}
+.head-actions .btn{ white-space:nowrap; }
+
+/* Make the Reason cell comfortably wide on desktop */
+.grid.reason-row{
+  grid-template-columns: 2fr 1.5fr 1fr 3fr 1fr; /* Procedure | Custom | Tooth | Reason | Cost */
+}
+.reason-cell textarea{ min-height: 3.2rem; }
+
+/* Controls row below the inputs */
+.grid.row-controls{
+  grid-template-columns: 1.5fr 2fr 1fr;
+  margin-top:.35rem;
+  align-items:end;
+}
+.push-right{ margin-left:auto; }
+
+/* Keep labels tidy */
+.grid.reason-row label,
+.grid.row-controls label{ min-width:0; }
+
+/* Each procedure line as a tidy mini-card */
+.proc-row{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding: .9rem .9rem .7rem;
+  background:#fff;
+  margin-bottom:.75rem;
+}
+
+/* Remove button floats top-right of the line */
+.remove-pill{
+  position:absolute;
+  top:.6rem;
+  right:.6rem;
+  width:2rem;
+  height:2rem;
+  padding:0;
+  line-height:1;
+}
+
+/* Top row: inputs on a single line where space allows */
+.row-top{
+  display:grid;
+  grid-template-columns: 2fr 1.6fr 1fr 1.2fr 1.4fr 1.2fr; /* proc | custom | tooth | cost | coverage | toggle */
+  grid-gap:.6rem;
+  align-items:end;
+}
+@media (max-width: 900px){
+  .row-top{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Full-width Reason below the top row */
+.row-reason{
+  margin-top:.6rem;
+}
+.row-reason label textarea{
+  min-height:3.1rem;
+}
+
+/* make custom field behave as a normal cell in the grid */
+.cell-proc, .cell-custom, .cell-tooth, .cell-cost, .cell-cov, .cell-toggle{ min-width:0; }
+
+/* inputs consistent height */
+.row-top input, .row-top select, .row-reason textarea{
+  height:auto;
+}
+
+/* subtle divider between sets when many lines exist */
+.proc-row + .proc-row{ margin-top:.85rem; }
+
+/* Keep labels narrow where useful */
+.cell-toggle span{ display:block; white-space:nowrap; }
